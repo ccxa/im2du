@@ -20,7 +20,7 @@ It can also copy the result directly to your clipboard with a simple flag.
 ### From .deb package (Debian/Ubuntu):
 
 ```bash
-sudo apt install ./im2du_package.deb
+sudo apt install ./im2du.deb
 ```
 
 > You can also use `dpkg -i` but `apt` installs dependencies automatically.
@@ -89,6 +89,6 @@ MIT License – do whatever you want, just don’t sue me 😄
 
 ## 👨‍💻 Author
 
-**Arostami** ([@ccxa](https://github.com/ccxa))  
+**Janel** ([@ccxa](https://github.com/ccxa))  
 📫 74ne1.pub@gmail.com  
 💬 Contributions welcome! PRs and issues are open.
