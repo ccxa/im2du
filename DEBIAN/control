@@ -1,0 +1,11 @@
+Package: im2du
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: xclip | wl-clipboard, coreutils
+Maintainer: Janel <74ne1.pub@gmail.com>
+Homepage: https://github.com/ccxa/im2du
+Vcs-Git: https://github.com/ccxa/im2du.git
+Vcs-Browser: https://github.com/ccxa/im2du
+Description: CLI tool to convert images to base64 Data URLs and optionally copy to clipboard.

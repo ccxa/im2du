@@ -1,0 +1,48 @@
+#!/bin/bash
+
+COPY_TO_CLIPBOARD=false
+OUTPUT_PATH=""
+
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --copy)
+      COPY_TO_CLIPBOARD=true
+      ;;
+    --out|-o)
+      OUTPUT_PATH="$2"
+      shift
+      ;;
+    *)
+      IMAGE_PATH="$1"
+      ;;
+  esac
+  shift
+done
+
+if [ -z "$IMAGE_PATH" ] || [ ! -f "$IMAGE_PATH" ]; then
+  echo "Usage: im2du <image-file> [--copy] [--out <output-file>]"
+  exit 1
+fi
+
+MIME_TYPE=$(file --mime-type -b "$IMAGE_PATH")
+
+if [ -z "$OUTPUT_PATH" ]; then
+  OUTPUT_PATH="${IMAGE_PATH}.dataurl.txt"
+fi
+
+echo -n "data:$MIME_TYPE;base64," > "$OUTPUT_PATH"
+base64 "$IMAGE_PATH" >> "$OUTPUT_PATH"
+
+echo "✅ Data URL saved to: $OUTPUT_PATH"
+
+if $COPY_TO_CLIPBOARD; then
+  if command -v xclip &> /dev/null; then
+    cat "$OUTPUT_PATH" | xclip -selection clipboard
+    echo "📋 Copied to clipboard (via xclip)"
+  elif command -v wl-copy &> /dev/null; then
+    cat "$OUTPUT_PATH" | wl-copy
+    echo "📋 Copied to clipboard (via wl-copy)"
+  else
+    echo "⚠️ Clipboard copy failed: 'xclip' or 'wl-copy' not found."
+  fi
+fi
